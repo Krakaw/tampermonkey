@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         BigNeon Versions
-// @namespace    https://github.com/Krakaw/tampermonkey/raw/master/bigneon_versions.user.js
+// @namespace    https://krakaw.github.io/
+// @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/bigneon_versions.user.js
 // @version      0.3
 // @description  Extract relevant version numbers from the Big Neon website
 // @author       Krakaw

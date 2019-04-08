@@ -1,22 +1,13 @@
 // ==UserScript==
 // @name         Mattermost favicon and hover
-// @namespace    https://krakaw.github.io/
-// @version      0.1
+// @namespace    https://github.com/Krakaw/tampermonkey/raw/master/mattermost.user.js
+// @version      0.2
 // @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups
 // @author       Krakaw
-// @match        https://nomatter.tari.com/*
-// @grant       GM_notification
+// @match        https://nomatter*
 // @grant       window.focus
 // ==/UserScript==
 
-
-/*var notificationDetails = {
-    text: 'THIS IS A TEST NOTIFICATION!!!',
-    title: 'TEST',
-    timeout: 15000,
-    onclick: function() { window.focus(); },
-  };
-GM_notification(notificationDetails);*/
 
 (function(document) {
     'use strict';

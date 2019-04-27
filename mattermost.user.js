@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         Mattermost favicon and hover
 // @namespace    https://krakaw.github.io/
-// @version      0.3
+// @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/mattermost.user.js
+// @version      0.4
 // @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups
 // @author       Krakaw
 // @match        https://nomatter.tari.com/*

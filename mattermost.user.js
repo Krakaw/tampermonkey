@@ -3,7 +3,7 @@
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/mattermost.user.js
 // @version      0.4
-// @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups
+// @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups, sidebar highlight and double click unread channels
 // @author       Krakaw
 // @match        https://nomatter.tari.com/*
 // @grant        GM_notification

@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         AWS Region Colouring
 // @namespace    http://krakaw.github.io/
+// @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/aws_region.user.js
 // @version      0.1
 // @description  Adjust the colour of the region menu element
 // @author       Krakaw

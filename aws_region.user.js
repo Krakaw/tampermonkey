@@ -8,6 +8,7 @@
 // @match        https://*.console.aws.amazon.com/*
 // @grant        none
 // ==/UserScript==
+// Originally found from: https://github.com/JB4GDI/awsazcolorchromeextension
 
 (function($) {
     'use strict';

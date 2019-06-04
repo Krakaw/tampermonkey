@@ -6,7 +6,6 @@
 // @description  Extract relevant version numbers from the Big Neon website
 // @author       Krakaw
 // @match        https://*.bigneon.com/*
-// @match        https://bn.scrathpad.metalworks.tarilabs.com/*
 // @match        http://localhost:3000/*
 // @match        https://bn-web-development.firebaseapp.com/*
 // @match        https://bigneon-develop-cfe0cd.netlify.com/*

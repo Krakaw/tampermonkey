@@ -6,3 +6,4 @@ General housing for tampermonkey scripts
  * [FNB](https://github.com/Krakaw/tampermonkey/raw/master/fnb.user.js)
  * [Github](https://github.com/Krakaw/tampermonkey/raw/master/github.user.js)
  * [AWS Regions](https://github.com/Krakaw/tampermonkey/raw/master/aws_region.user.js)
+ * [AWS Favicons](https://github.com/Krakaw/tampermonkey/raw/master/aws_favicon.user.js)

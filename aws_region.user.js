@@ -2,7 +2,7 @@
 // @name         AWS Region Colouring
 // @namespace    http://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/aws_region.user.js
-// @version      0.2
+// @version      0.3
 // @description  Adjust the colour of the region menu element
 // @author       Krakaw (Original concept from https://github.com/JB4GDI/awsazcolorchromeextension)
 // @match        https://*.console.aws.amazon.com/*
@@ -12,6 +12,7 @@
 (function($) {
     'use strict';
     const REGIONS = {
+        "Global": {fontColor: "#ffffff", backgroundColor: "#232f3e"},
         "N. Virginia": {fontColor: "#97c8f0", backgroundColor: "#00297b",},
         "Ohio": {fontColor: "#d43547", backgroundColor: "#00155a",},
         "N. California": {fontColor: "#be8b5e", backgroundColor: "#b80a31",},

@@ -4,7 +4,7 @@
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/aws_region.user.js
 // @version      0.2
 // @description  Adjust the colour of the region menu element
-// @author       Krakaw
+// @author       Krakaw (Original concept from https://github.com/JB4GDI/awsazcolorchromeextension)
 // @match        https://*.console.aws.amazon.com/*
 // @grant        none
 // ==/UserScript==

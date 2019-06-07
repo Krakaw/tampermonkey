@@ -2,7 +2,7 @@
 // @name         AWS Console Favicon
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/aws_favicon.user.js
-// @version      0.2
+// @version      0.3
 // @description  Change the favicon for AWS
 // @author       Krakaw (Original concept from https://github.com/JB4GDI/awsfaviconupdater)
 // @match        https://*.console.aws.amazon.com/*
@@ -11,59 +11,40 @@
 
 (function() {
     'use strict';
-
-    const ICONS = {};
-    let SPRITE_URL = false;
-    //Automatically extract the service names and sprite positions from https://console.aws.amazon.com/resource-groups
-    document.querySelectorAll('span.service-icon.service-icon-navbar.service-icon-size-med').forEach(item => {
-        if (!item) return;
-        const href = item.parentElement.parentElement.parentElement.getAttribute('data-service-href');
-        if (!SPRITE_URL) {
-            SPRITE_URL = getComputedStyle(item).backgroundImage.replace('url("', "").replace('")', '');
-        }
-        const awsServiceName = extractServiceName(href);
-        ICONS[awsServiceName] = item.style.backgroundPosition.replace(/[^0-9 ]/g, '').split(' ').map(x => +x);
-    });
-
-    // Look for the string blocks right after the 'amazon.com/' (ec2/s3/iam/ses/etc...)
-
-    let reg = /:\/\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/*/g;
-
-    // Break the URL into parts and capture the string after the 'amazon.com/' as awsServiceName
-    let captureGroupArray = Array.from(document.URL.matchAll(reg));
-    let awsServiceName = captureGroupArray[0][2];
-
-    // For Codesuite URLs (Codebuild/CodeDeploy/CodePipeline/etc...), we need to break the URL apart further to work
-    if (awsServiceName === 'codesuite') {
-        awsServiceName = captureGroupArray[0][3];
-    }
-
-
+    const {icons, spriteUrl} = populateIcons();
+    const awsServiceName = extractServiceName(document.URL);
     // We have found a match in the URL!
-    if (ICONS.hasOwnProperty(awsServiceName)) {
+    if (icons.hasOwnProperty(awsServiceName)) {
         setIcon(awsServiceName);
     }
 
-
+    /**
+ * Removes all the current favicons then loads the new favicon and sets it.
+ **/
     function setIcon(awsServiceName) {
-        let position = ICONS[awsServiceName];
-        document.querySelectorAll("link[rel*='icon']").forEach(item => {item.parentNode.removeChild(item)});
+        let position = icons[awsServiceName];
+        document.querySelectorAll("link[rel*='icon']").forEach(item => {
+            item.parentNode.removeChild(item)
+        });
         var link = document.createElement('link');
         link.type = 'image/png';
         link.rel = 'shortcut icon';
-        genIcon(position, function (dataUrl) {
+        generateIcon(position, function (dataUrl) {
             link.href = dataUrl;
             document.getElementsByTagName('head')[0].appendChild(link);
         });
 
     }
 
-    function genIcon(position, cb) {
+    /**
+ * Generates the icon from the sprite file based on the position from the ICONS array.
+ **/
+    function generateIcon(position, cb) {
+
         let image = new Image();
-        image.src = SPRITE_URL;
-
+        image.crossOrigin = 'anonymous';
+        image.src = spriteUrl;
         let canvas = document.createElement('canvas');
-
         image.onload = function () {
             canvas.width = this.width;
             canvas.height = this.height;
@@ -76,7 +57,9 @@
     }
 
 
-    // The crop function
+    /**
+ * Crops the canvas of the sprite to the favicon position and returns a base64 encoded image
+ **/
     function crop(canvas, offsetX, offsetY, width, height, callback) {
         // create an in-memory canvas
         var buffer = document.createElement('canvas');
@@ -93,7 +76,10 @@
         callback(buffer.toDataURL());
     }
 
-     function extractServiceName(url) {
+    /**
+ * Extracts the service name from the url
+ **/
+    function extractServiceName(url) {
         let reg = /:\/\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/([a-z0-9.-]*)\/*/g;
 
         // Break the URL into parts and capture the string after the 'amazon.com/' as awsServiceName
@@ -108,5 +94,27 @@
         }
         return awsServiceName;
     }
+
+    /**
+ * Fetches all of the available services and icon positions
+ * Also sets the latest sprite image url
+ */
+    function populateIcons() {
+        const icons = {};
+        let spriteUrl = '';
+        //Automatically extract the service names and sprite positions from https://console.aws.amazon.com/resource-groups
+        document.querySelectorAll('span.service-icon.service-icon-navbar.service-icon-size-med').forEach(item => {
+            if (!item) return;
+            const href = item.parentElement.parentElement.parentElement.getAttribute('data-service-href');
+            if (!spriteUrl) {
+                spriteUrl = 'https://api.codetabs.com/v1/proxy?quest=' + getComputedStyle(item).backgroundImage.replace('url("', "").replace('")', '');
+            }
+            const awsServiceName = extractServiceName(href);
+            icons[awsServiceName] = item.style.backgroundPosition.replace(/[^0-9 ]/g, '').split(' ').map(x => +x);
+        });
+        return {icons, spriteUrl};
+    }
+
+
 
 })();

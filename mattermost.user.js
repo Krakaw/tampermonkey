@@ -2,8 +2,8 @@
 // @name         Mattermost favicon and hover
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/mattermost.user.js
-// @version      0.4
-// @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups, sidebar highlight and double click unread channels
+// @version      0.5
+// @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups
 // @author       Krakaw
 // @match        https://nomatter.tari.com/*
 // @grant        GM_notification
@@ -83,11 +83,13 @@ GM_notification(notificationDetails);*/
             console.log("Running Tampermonkey mods");
             var sideBarEl = document.querySelector('.team-sidebar');
 
+
+
             var canvas = document.createElement('canvas'),
                 ctx,
                 img = document.createElement('img'),
-                link = document.getElementById('favicon');
-            var origLink = link.href;
+                links = document.querySelectorAll("head link[rel=icon]");
+            var origLink = links[0].href;
 
             var setTitles = function () {
                 document.querySelectorAll('.sidebar-item__name').forEach(function (item) {
@@ -126,7 +128,7 @@ GM_notification(notificationDetails);*/
                         ctx.fillStyle = '#ffffff';
                         ctx.fillText(unreadCount, 4, 12);
                     }
-                    document.getElementById('favicon').href = canvas.toDataURL('image/png');
+                    links.forEach(link => {link.href = canvas.toDataURL('image/png');})
                 };
                 img.src = origLink;
             }, 1000);

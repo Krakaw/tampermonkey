@@ -22,7 +22,7 @@ var VERSION_DIV = document.createElement("div");
 VERSION_DIV.id = 'js-bigneon-versions';
 (function () {
     "use strict";
-    GM_addStyle(`#js-bigneon-versions { position: fixed; display: flex; flex-direction: column; border-radius: 4px; right:6px; top:100px; background-color: rgba(0,0,0,0.5); color: #fff; height: 100px; z-index:10000; padding: 5px; } #js-bigneon-versions.super-admin:after {content: ""; opacity: 0.5; background-image: ${SUPERMAN_IMAGE}; background-repeat: no-repeat; background-size: contain; background-position: center center; top: 0; left: 0; bottom: 0; right: 0; position: absolute; z-index: -1; } `);
+    GM_addStyle(`#js-bigneon-versions { position: fixed; display: flex; flex-direction: column; border-radius: 4px; right:6px; top:100px; background-color: rgba(0,0,0,0.5); color: #fff; height: 140px; z-index:10000; padding: 5px; } #js-bigneon-versions.super-admin:after {content: ""; opacity: 0.5; background-image: ${SUPERMAN_IMAGE}; background-repeat: no-repeat; background-size: contain; background-position: center center; top: 0; left: 0; bottom: 0; right: 0; position: absolute; z-index: -1; } `);
 
 
 

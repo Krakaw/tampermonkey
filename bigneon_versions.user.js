@@ -2,7 +2,7 @@
 // @name         BigNeon Versions
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/bigneon_versions.user.js
-// @version      0.6
+// @version      0.7
 // @description  Extract relevant version numbers from the Big Neon website
 // @author       Krakaw
 // @match        https://*.bigneon.com/*
@@ -60,7 +60,7 @@ VERSION_DIV.id = 'js-bigneon-versions';
             VERSION_DIV.className = 'super-admin';
         }
 
-        VERSION_DIV.innerHTML = `Node: ${BN_API_NODE_VERSION}<hr/>API: ${BN_API_VERSION}<hr/>Web: ${BN_WEB_VERSION}`;
+        VERSION_DIV.innerHTML = `Host: ${window.location.host}<hr/>Node: ${BN_API_NODE_VERSION}<hr/>API: ${BN_API_VERSION}<hr/>Web: ${BN_WEB_VERSION}`;
     }, 5000);
 })();
 XMLHttpRequest.prototype.wrappedSetRequestHeader =

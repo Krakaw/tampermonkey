@@ -2,7 +2,7 @@
 // @name         AWS Region Colouring
 // @namespace    http://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/aws_region.user.js
-// @version      0.3
+// @version      0.4
 // @description  Adjust the colour of the region menu element
 // @author       Krakaw (Original concept from https://github.com/JB4GDI/awsazcolorchromeextension)
 // @match        https://*.console.aws.amazon.com/*
@@ -29,16 +29,19 @@
         "London": {fontColor: "#cf142b", backgroundColor: "#ffffff",},
         "Paris": {fontColor: "#ed2939", backgroundColor: "#002395",},
         "Stockholm": {fontColor: "#ffc90e", backgroundColor: "#2452bd",},
-        "S&atilde;o Paulo": {fontColor: "#294292", backgroundColor: "#212125",},
+        "São Paulo": {fontColor: "#294292", backgroundColor: "#212125",},
+        "Bahrain": {fontColor: "#ebc334", backgroundColor: "#ecffa8",},
     };
 
+    const currentRegion = document.getElementById('awsc-mezz-region').getAttribute('content');
     const regionMenuParent = document.getElementById('nav-regionMenu');
-    const label = regionMenuParent.querySelector('div.nav-elt-label');
-    const regionText = label.textContent;
+    const currentRegionNav = regionMenuParent.querySelector('div.nav-elt-label');
+    const regionText = currentRegionNav.textContent;
     if (REGIONS.hasOwnProperty(regionText)) {
         let style = REGIONS[regionText];
-        label.style.cssText = `color: ${style.fontColor} !important; font-weight: bold !important; text-shadow: none !important`;
+        currentRegionNav.style.cssText = `color: ${style.fontColor} !important; font-weight: bold !important; text-shadow: none !important`;
         regionMenuParent.style.cssText = `background-color: ${style.backgroundColor} !important`;
+        currentRegionNav.innerHTML += `<sup>${currentRegion}</sup>`;
     } else {
         console.error(`Missing Region: ${regionText}`);
     }
@@ -46,11 +49,21 @@
     regionMenuParent.addEventListener('click', function() {
         document.querySelectorAll('#regionMenuContent > a').forEach(item => {
             let menuRegionText = item.textContent.replace(/.*?\((.*?)\)/, "$1");
+            let region = item.getAttribute('data-region-id');
+
+            let innerDiv = document.createElement('div');
+            innerDiv.style.cssText = `display: flex`;
+            innerDiv.innerHTML = `<div>${item.innerHTML}<br/>${region}</div>`;
+
+
             let style = REGIONS[menuRegionText];
-            if (!style) return;
-            let div = document.createElement('span');
-            div.style.cssText = `background: linear-gradient(45deg, ${style.fontColor} 50%, ${style.backgroundColor} 50%); width: 16px; height:16px; display: inline-block; margin:0; margin-right: 2px;`;
-            item.prepend(div);
+            if (style) {
+            let flagSpan = document.createElement('span');
+                flagSpan.style.cssText = `background: linear-gradient(45deg, ${style.fontColor} 50%, ${style.backgroundColor} 50%); width: 30px; height:30px; display: inline-block; margin:0; margin-right: 2px;`;
+                innerDiv.prepend(flagSpan);
+            }
+            item.innerHTML = '';
+            item.append(innerDiv);
         })
     });
 })();

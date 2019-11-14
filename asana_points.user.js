@@ -2,7 +2,7 @@
 // @name         Asana Point Counter
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/asana_points.user.js
-// @version      0.4
+// @version      0.5
 // @description  Calculates points for a sprint
 // @author       Krakaw
 // @match        https://app.asana.com/*
@@ -26,10 +26,11 @@
 	GM_addStyle("#tallys::before {content: none !important;}")
 	const styleSheet = GM_addStyle("").sheet;
 	const hideToggle = document.createElement("span");
+    hideToggle.id = "total-points-span";
 	hideToggle.addEventListener("click", toggle);
 	const userAvatarElements = {};
 
-	const STACKS = ["API", "Web", "React Native - Consumer", "iOS - Studio", "Android - Studio"];
+	const STACKS = ["API", "Web", "React Native - Consumer"];
 
 	function toggle() {
 		if (styleSheet.cssRules.length) {
@@ -158,7 +159,7 @@ ${stackHtml}
 
 		});
 	}
-
+var ccc = 0;
 	function tally() {
 		let tallyTotal = document.getElementById("tallys");
 		if (!tallyTotal) {
@@ -198,8 +199,7 @@ ${stackHtml}
 
 		});
 
-
-		hideToggle.innerHTML = `${_row("👁 <b>Board Total</b>", total, estimatedTotal)}`;
+		document.getElementById("total-points-span").innerHTML = `${_row("👁 <b>Board Total</b>", total, estimatedTotal)}`;
 		renderPerUserPointsList(perUserPoints, tallyTotal);
 	}
 

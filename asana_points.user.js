@@ -23,7 +23,8 @@
         "https://s3.amazonaws.com/profile_photos/1122382265175950.0DG1fvPUohiHivBS3K58_27x27.png": "zuzu",
         "https://s3.amazonaws.com/profile_photos/1138169963727452.doZhsHqa67GFwisflPLT_27x27.png": "icecool",
         "Avatar--color3": "nine",
-        "https://s3.amazonaws.com/profile_photos/1126525471135378.EJXWe1srDcr1pP5naHmE_27x27.png": "mono"
+        "https://s3.amazonaws.com/profile_photos/1126525471135378.EJXWe1srDcr1pP5naHmE_27x27.png": "mono",
+        "https://s3.amazonaws.com/profile_photos/1148890256178133.QCVPF3t9T8RY79ISzAWW_27x27.png": "yenty"
     };
     const stacks = ["API", "Web", "React Native - Consumer"];
 

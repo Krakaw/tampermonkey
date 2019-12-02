@@ -2,7 +2,7 @@
 // @name         Asana Point Counter
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/asana_points.user.js
-// @version      0.8
+// @version      0.9
 // @description  Calculates points for a sprint
 // @author       Krakaw
 // @match        https://app.asana.com/*
@@ -27,7 +27,7 @@
     "https://s3.amazonaws.com/profile_photos/1148890256178133.QCVPF3t9T8RY79ISzAWW_27x27.png": "yenty",
     "https://s3.amazonaws.com/profile_photos/1107731534831075.TmOlbhFjttfbsvSdcPuB_27x27.png": "leet"
   };
-  const stacks = ["API", "Web", "React Native - Consumer"];
+  const stacks = ["API", "Web", "React Native - Consumer", "Infrastructure"];
 
   /** -------------------------- Don't edit anything after here -------------------------- **/
 

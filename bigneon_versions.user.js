@@ -29,7 +29,7 @@ VERSION_DIV.id = 'js-bigneon-versions';
     if (window.location.host.indexOf('bigneon') === -1 && window.location.host.indexOf(':3000') === -1) {
         return;
     }
-    GM_addStyle(`#js-bigneon-versions { position: fixed; display: flex; flex-direction: column; border-radius: 4px; right:6px; top:100px; background-color: rgba(0,0,0,0.5); color: #fff; height: 140px; z-index:10000; padding: 5px; } #js-bigneon-versions.ultra-admin:after { background-image: ${HYDRA_IMAGE}; } #js-bigneon-versions.super-admin:after { background-image: ${SUPERMAN_IMAGE}; } #js-bigneon-versions.admin:after {content: ""; opacity: 0.5; background-repeat: no-repeat; background-size: contain; background-position: center center; top: 0; left: 0; bottom: 0; right: 0; position: absolute; z-index: -1; } `);
+    GM_addStyle(`#js-bigneon-versions { height: 170px;position: fixed; display: flex; flex-direction: column; border-radius: 4px; right:6px; top:100px; background-color: rgba(0,0,0,0.5); color: #fff;  z-index:10000; padding: 5px; } #js-bigneon-versions.ultra-admin:after { background-image: ${HYDRA_IMAGE}; } #js-bigneon-versions.super-admin:after { background-image: ${SUPERMAN_IMAGE}; } #js-bigneon-versions.admin:after {content: ""; opacity: 0.5; background-repeat: no-repeat; background-size: contain; background-position: center center; top: 0; left: 0; bottom: 0; right: 0; position: absolute; z-index: -1; } `);
 
 
     function checkZoom() {
@@ -76,8 +76,11 @@ VERSION_DIV.id = 'js-bigneon-versions';
         } else if (IS_SUPER_ADMIN) {
             VERSION_DIV.className = 'super-admin admin';
         }
+        let zoom = checkZoom();
+        let zoomStyle = zoom != 100 ? 'font-weight: bold; color: red; font-size:1.5em': '';
+        let zoomHtml = `<span style="${zoomStyle}">Zoom: ${zoom}%</zoom>`;
 
-        VERSION_DIV.innerHTML = `Host: ${window.location.host}<hr/>Node: ${BN_API_NODE_VERSION}<hr/>API: ${BN_API_VERSION}<hr/>Web: ${BN_WEB_VERSION}<hr />Zoom: ${checkZoom()}%`;
+        VERSION_DIV.innerHTML = `Host: ${window.location.host}<hr/>Node: ${BN_API_NODE_VERSION}<hr/>API: ${BN_API_VERSION}<hr/>Web: ${BN_WEB_VERSION}<hr />${zoomHtml}`;
     }, 5000);
 })();
 XMLHttpRequest.prototype.wrappedSetRequestHeader =

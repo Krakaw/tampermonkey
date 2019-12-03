@@ -2,7 +2,7 @@
 // @name         BigNeon Versions
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/bigneon_versions.user.js
-// @version      0.10
+// @version      0.11
 // @description  Extract relevant version numbers from the Big Neon website
 // @author       Krakaw
 // @match        https://*.bigneon.com/*
@@ -78,7 +78,7 @@ VERSION_DIV.id = 'js-bigneon-versions';
             VERSION_DIV.className = 'super-admin admin';
         }
         let zoom = checkZoom();
-        let zoomStyle = zoom != 100 ? 'font-weight: bold; color: red; font-size:1.5em': '';
+        let zoomStyle = zoom % 100 !== 0 ? 'font-weight: bold; color: red; font-size:1.5em': '';
         let zoomHtml = `<span style="${zoomStyle}">Zoom: ${zoom}%</zoom>`;
 
         VERSION_DIV.innerHTML = `Host: ${window.location.host}<hr/>Node: ${BN_API_NODE_VERSION}<hr/>API: ${BN_API_VERSION}<hr/>Web: ${BN_WEB_VERSION}<hr />${zoomHtml}`;

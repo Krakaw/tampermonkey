@@ -2,7 +2,7 @@
 // @name         Asana Point Counter
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/asana_points.user.js
-// @version      0.9
+// @version      0.10
 // @description  Calculates points for a sprint
 // @author       Krakaw
 // @match        https://app.asana.com/*
@@ -113,7 +113,7 @@
       stackValues[stack] = {e: 0, t: 0};
     });
 
-    [...column.querySelectorAll(".BoardCardWithCustomProperties-contents")].forEach(card => {
+    [...column.querySelectorAll(".BoardCard-contents")].forEach(card => {
       const {currentStack, cardTotal, cardEstimateTotal, avatarUrl} = _cardValues(card);
       if (avatarUrl) {
         if (!perUserPoints.hasOwnProperty(avatarUrl)) {
@@ -196,7 +196,6 @@
 
   function getContainer() {
     container = document.getElementById(containerId);
-    console.log(container);
     if (!container) {
       container = document.createElement("div");
       container.id = containerId;

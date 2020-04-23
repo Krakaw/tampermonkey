@@ -2,7 +2,7 @@
 // @name         Mattermost favicon and hover
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/mattermost.user.js
-// @version      0.5
+// @version      0.6
 // @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups
 // @author       Krakaw
 // @match        https://nomatter.tari.com/*
@@ -29,6 +29,14 @@ GM_notification(notificationDetails);*/
 
     var directLinksContainer = null;
     var css = `
+        .direct-link {
+           position: fixed; left: 0;
+           width: 70px;
+           opacity: 1;
+           z-index: 10000;
+           padding-left: 2px;
+           top: 200px;
+        }
 		.direct-link a {
 			padding-top: 5px;
 			color: #121212;
@@ -50,10 +58,9 @@ GM_notification(notificationDetails);*/
                 let href = e.target.getAttribute("data-href");
                 window.location.hash = href;
                 window.history.pushState(null, null, href);
+                e.preventDefault();
             });
-            const teamList = sideBarEl.querySelectorAll('.team-btn');
-            var lastTeamEl = teamList[teamList.length - 1];
-            lastTeamEl.after(directLinksContainer);
+            document.body.append(directLinksContainer);
         }
         directLinksContainer.innerHTML = '';
 
@@ -65,14 +72,10 @@ GM_notification(notificationDetails);*/
             a.innerText = el.parentNode.title;
             a.setAttribute("data-href", el.href.replace('https://nomatter.tari.com', ''));
             directLinksContainer.append(a);
-
         });
-
-
     }
 
     window.addEventListener('load', function () {
-
         document.body.addEventListener("click", function (event) {
             if (event.target.classList.contains("unread") && event.target.classList.contains("team-container")) {
                 event.target.classList.remove("unread");

@@ -2,7 +2,7 @@
 // @name         Mattermost favicon and hover
 // @namespace    https://krakaw.github.io/
 // @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/mattermost.user.js
-// @version      0.6
+// @version      0.7
 // @description  Favicon change when there are unread messages, when hovering over a name, expose all members of private groups
 // @author       Krakaw
 // @match        https://nomatter.tari.com/*
@@ -43,6 +43,8 @@ GM_notification(notificationDetails);*/
 			text-decoration: underline;
 			font-size: 10px;
 		}
+        #sidebarChannelContainer ul:not(.override-visible) li:not(.sidebar-section__header) { display: none }
+        #sidebarChannelContainer ul li:nth-child(-n+11) { display: block !important}
 	`,
         head = document.head || document.getElementsByTagName('head')[0],
         style = document.createElement('style');
@@ -91,7 +93,13 @@ GM_notification(notificationDetails);*/
             var canvas = document.createElement('canvas'),
                 ctx,
                 img = document.createElement('img'),
-                links = document.querySelectorAll("head link[rel=icon]");
+                links = document.querySelectorAll("head link[rel=icon]"),
+                channelGroups = document.querySelectorAll('#sidebarChannelContainer ul');
+
+            channelGroups.forEach(group => {
+                group.addEventListener('click', () => {group.classList.toggle("override-visible")});
+
+            });
             var origLink = links[0].href;
 
             var setTitles = function () {

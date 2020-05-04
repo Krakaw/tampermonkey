@@ -94,10 +94,12 @@ GM_notification(notificationDetails);*/
                 ctx,
                 img = document.createElement('img'),
                 links = document.querySelectorAll("head link[rel=icon]"),
-                channelGroups = document.querySelectorAll('#sidebarChannelContainer ul');
+                channelGroups = document.querySelectorAll('#sidebarChannelContainer ul li.sidebar-section__header');
 
             channelGroups.forEach(group => {
-                group.addEventListener('click', () => {group.classList.toggle("override-visible")});
+                group.addEventListener('click', (e) => {
+                   group.parentElement.classList.toggle("override-visible");
+                });
 
             });
             var origLink = links[0].href;

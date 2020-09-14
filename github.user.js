@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Github formatting
 // @namespace    https://krakaw.github.io/
-// @version      0.4
+// @version      0.5
 // @description  Some github enhancements
 // @author       Krakaw
 // @match        https://github.com/*/pulls*
@@ -82,7 +82,7 @@
                     byWeek[i].forEach(item => {item.style.display = display});
                 }
             });
-            document.querySelector("#js-issues-toolbar > div.table-list-filters.flex-auto > div > div.flex-auto > div").prepend(filterInput);
+            document.querySelector("#js-issues-toolbar > div.table-list-filters > div.table-list-header-toggle").prepend(filterInput);
             document.querySelectorAll(".opened-by relative-time").forEach(item => {
                 try {
                     if (!item) {
@@ -92,7 +92,7 @@
                     let parentIdNode = item.parentNode.parentNode.parentNode.parentNode.parentNode;
                     let date = new Date(dateTime);
                     item.innerHTML = `<i class="js-formatted"></i>${item.getAttribute("title")}` + item.innerHTML;
-                    let label = parentIdNode.querySelector("label.float-left.py-2.pl-3");
+                    let label = parentIdNode.querySelector("label.py-2.pl-3");
                     const week = date.getWeek(6) + '';
                     if (!byWeek.hasOwnProperty(week)) {
                         byWeek[week] = [];
@@ -106,3 +106,4 @@
     }
     process();
 })();
+

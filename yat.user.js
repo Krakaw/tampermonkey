@@ -29,7 +29,6 @@
     search.style.margin = 'auto';
     search.style.padding = '0';
     search.style.maxWidth = '99%;';
-    //search.style.border = 'none';
 
     search.addEventListener('keyup', (e) => {
       const query = e.target.value;
@@ -40,7 +39,6 @@
           child.style.display = 'none';
         }
       });
-      console.log(e.target.value);
     });
     span.appendChild(search);
     menu.prepend(span);

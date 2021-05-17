@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Yat Search
 // @namespace    https://krakaw.github.io
-// @version      0.1
+// @version      0.2
 // @description  Search for your Yats
 // @author       Krakaw ☠️🐙☠️
 // @match        http://localhost:3000/*
@@ -48,7 +48,5 @@
 
   const interval = window.setInterval(() => {
     setup();
-  }, 5000);
-
-  // Your code here...
+  }, 500);
 })();

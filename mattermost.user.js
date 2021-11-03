@@ -62,14 +62,14 @@ class StoredLinks {
                     if (mutation.addedNodes.length >= 1) {
                         const menu = [...mutation.addedNodes].find(n => n && n.className && n.className.indexOf('MenuWrapper') > -1 && n.querySelector('ul.Menu__content'));
                         if (menu) {
-                            const postId = menu.parentElement.parentElement.dataset.testid.split('-').pop();
+                            const postId = menu.closest('.a11y__section').id.split('_').pop();
                             const postElement = document.getElementById(`post_${postId}`);
                             const postTitle = postElement.getAttribute('aria-label');
 
-                            const matches = postTitle.match(/At (.*?, .*?), (.*?) wrote, (.*)/);
+                            const matches = postTitle.match(/At (.*?, .*?), (.*?) (wrote|replied), (.*)/);
                             const date = matches[1];
                             const username = matches[2];
-                            const postText = matches[3];
+                            const postText = matches[4];
                             const channel = document.getElementById('channelHeaderTitle').innerText;
 
                             const storeItem = document.createElement('li');
@@ -120,6 +120,7 @@ class StoredLinks {
         holder.style.top = '0px';
         holder.style.left = '0px';
         holder.style.zIndex = '9999';
+        holder.style.maxWidth = '70%';
         const ul = document.createElement('ul');
         ul.style.color = 'white'
         holder.appendChild(ul);

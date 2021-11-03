@@ -35,6 +35,7 @@ class StoredLinks {
                 d="M5.9840508,26.3281498c-3.2904999,0-5.9677,2.6772003-5.9677,5.9676991c0,3.2905998,2.6772001,5.9678001,5.9677,5.9678001c3.2905998,0,5.9678001-2.6772003,5.9678001-5.9678001C11.9518509,29.0053501,9.2746506,26.3281498,5.9840508,26.3281498z M5.9840508,36.3281517c-2.2235854,0-4.0321999-1.8086014-4.0321999-4.0323029c0-2.2235985,1.8086146-4.032198,4.0321999-4.032198c2.2236996,0,4.0323,1.8085995,4.0323,4.032198C10.0163507,34.5195503,8.2077503,36.3281517,5.9840508,36.3281517z"/><path
                 d="M5.9840508,46.2822495c-3.2904999,0-5.9677,2.6772003-5.9677,5.967701c0,3.2905998,2.6772001,5.9678001,5.9677,5.9678001c3.2905998,0,5.9678001-2.6772003,5.9678001-5.9678001C11.9518509,48.9594498,9.2746506,46.2822495,5.9840508,46.2822495z M5.9840508,56.2822495c-2.2235854,0-4.0321999-1.8085976-4.0321999-4.032299c0-2.2236023,1.8086146-4.0321999,4.0321999-4.0321999c2.2236996,0,4.0323,1.8085976,4.0323,4.0321999C10.0163507,54.4736519,8.2077503,56.2822495,5.9840508,56.2822495z"/></g>
         </svg>
+        <span id="quantity">0</span>
 `;
         const button = document.createElement('button')
         button.className = 'channel-header__icon';
@@ -42,7 +43,12 @@ class StoredLinks {
         button.onclick = () => {
             this.showList();
         }
+        button.setQuantity = (quantity) => {
+            button.querySelector('span').innerText = quantity;
+        }
+        button.setQuantity(this._getData().length)
         this.div.appendChild(button);
+        this.button = button;
 
     }
 
@@ -147,7 +153,8 @@ class StoredLinks {
         return JSON.parse(GM_getValue('storedLinks', '[]'));
     }
     _setData(data) {
-        GM_setValue('storedLinks', JSON.stringify(data))
+        GM_setValue('storedLinks', JSON.stringify(data));
+        this.button.setQuantity(data.length);
     }
 }
 

@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Telegram web favicon
 // @namespace    https://krakaw.github.io/
-// @updateURL    https://github.com/Krakaw/tampermonkey/raw/master/telegram.user.js
-// @version      0.1
+// @version      0.2
 // @description  Show unread count in telegram web favicon
 // @author       Krakaw
 // @match        https://web.telegram.org/k/
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=telegram.org
 // @grant unsafeWindow
+// @grant        window.focus
 // ==/UserScript==
 
 (function () {
@@ -29,8 +29,10 @@
         unreadCount = document.querySelectorAll('a:not(.is-muted) .is-visible.unread').length;
         canvas.height = canvas.width = 16; // set the size
         ctx = canvas.getContext('2d');
+        icon = document.querySelector('head link[rel=icon]');
         img.onload = function () { // once the image has loaded
             ctx.drawImage(this, 0, 0);
+            console.log(unreadCount);
             if (unreadCount > 0) {
                 const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 const data = imageData.data;

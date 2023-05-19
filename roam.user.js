@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Roam
 // @namespace    https://krakaw.github.io
-// @version      0.1
+// @version      0.2
 // @description  Message counter in favicon and knocking event emitter
 // @author       Krakaw
 // @match        https://ro.am/r/
@@ -10,8 +10,7 @@
 // @run-at       document-start
 // ==/UserScript==
 
-// Trigger URL must be https
-const triggerUrl = 'https://your-knocking-server';
+const triggerUrl = 'https://192.168.0.11:8443/trigger';
 const link = document.createElement('link');
 link.setAttribute('rel','icon')
 
@@ -47,6 +46,17 @@ function convertImage(unreadCount = 0) {
 }
 (function() {
     'use strict';
+
+
+    // Keep session alive always
+    const oldAddEventListener = document.addEventListener;
+    document.addEventListener = (...args) => {
+        const [type, ...opts] = args;
+        if (type === 'wheel') {
+            setInterval(() => {opts[0]()}, 1000);
+        }
+        oldAddEventListener.apply(this, [...args]);
+    }
     WebSocket.prototype.addEventListenerOld = WebSocket.prototype.addEventListener;
     WebSocket.prototype.addEventListener = function(...args) {
         var a = 0;
